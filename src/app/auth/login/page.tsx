@@ -1,10 +1,11 @@
 'use client';
 
+import Tap2Buy from '@/components/logo/Tap2Bay';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { Suspense, useState } from 'react';
 
-const ADMIN_EMAIL = 'Ahmed-Saad@gmail.com';
+const ADMIN_USERNAME = 'Ahmed-Saad';
 const ADMIN_PASSWORD = 'A7med@123';
 
 function LoginForm() {
@@ -12,7 +13,7 @@ function LoginForm() {
     const searchParams = useSearchParams();
     const returnTo = searchParams.get('from') || '/admin';
 
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPass, setShowPass] = useState(false);
     const [error, setError] = useState('');
@@ -25,13 +26,13 @@ function LoginForm() {
 
         await new Promise((r) => setTimeout(r, 900));
 
-        if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
             // Set cookie so Next.js middleware can protect /admin routes
             document.cookie = `cafe_admin_token=authenticated; path=/; max-age=${30 * 60}; SameSite=Strict`;
             localStorage.setItem('cafe_admin', 'true');
             router.push(returnTo);
         } else {
-            setError('البريد الإلكتروني أو كلمة المرور غلط، حاول تاني.');
+            setError('اسم المستخدم أو كلمة المرور غلط، حاول تاني.');
             setLoading(false);
         }
     };
@@ -39,24 +40,35 @@ function LoginForm() {
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
 
-            {/* Email */}
+            {/* Username */}
             <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C1A0E] text-sm font-semibold">البريد الإلكتروني</label>
+                <label className="text-[#2C1A0E] text-sm font-semibold">
+                    اسم المستخدم
+                </label>
+
                 <div className="relative">
                     <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                        <svg className="w-4 h-4 text-[#B8A99A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <rect x="2" y="4" width="20" height="16" rx="2" />
-                            <path d="m2 7 10 7 10-7" />
+                        {/* أيقونة User بدل الإيميل */}
+                        <svg
+                            className="w-4 h-4 text-[#B8A99A]"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                        >
+                            <circle cx="12" cy="8" r="4" />
+                            <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
                         </svg>
                     </div>
+
                     <input
-                        type="email"
-                        placeholder="example@gmail.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        type="text"
+                        placeholder="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                         required
                         className="input-field"
-                        autoComplete="email"
+                        autoComplete="username"
                     />
                 </div>
             </div>
@@ -185,21 +197,7 @@ const Login = () => (
                 <div className="bg-white/80 backdrop-blur-sm border border-[#E8D9C8] rounded-3xl shadow-2xl shadow-[#C8793A]/10 p-8 md:p-10 fade-up">
 
                     {/* Logo */}
-                    <div className="flex flex-col items-center mb-8">
-                        <Link href="/" className="group flex flex-col items-center gap-2 mb-2">
-                            <div className="w-14 h-14 rounded-2xl bg-linear-to-br from-[#C8793A] to-[#9E5A22] flex items-center justify-center shadow-lg shadow-[#C8793A]/30 group-hover:scale-105 transition-transform duration-300">
-                                <span className="text-white font-black text-lg">A.S</span>
-                            </div>
-                            <div className="text-center">
-                                <p className="font-black text-[#2C1A0E] text-lg leading-none">A.Sa3d</p>
-                                <p className="text-[9px] text-[#8C7B6E] tracking-widest uppercase">Dev</p>
-                            </div>
-                        </Link>
-                        <div className="mt-4 text-center">
-                            <h1 className="text-xl font-black text-[#2C1A0E]">مرحباً بيك</h1>
-                            <p className="text-[#8C7B6E] text-sm mt-1">سجل دخولك للوصول للوحة التحكم</p>
-                        </div>
-                    </div>
+                    <Tap2Buy width={120} showText className="mx-auto mb-6" />
 
                     {/* Suspense needed for useSearchParams */}
                     <Suspense fallback={<div className="h-40 flex items-center justify-center text-[#8C7B6E] text-sm">جاري التحميل...</div>}>
