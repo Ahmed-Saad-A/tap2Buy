@@ -6,7 +6,7 @@ interface LogoProps {
     className?: string;
 }
 
-const Tap2Bay = ({
+const Tap2Buy = ({
     width = 140,
     dark = false,
     showText = true,
@@ -24,7 +24,7 @@ const Tap2Bay = ({
             viewBox={`0 0 ${totalWidth} ${iconSize}`}
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            aria-label="Tap2Bay Café logo"
+            aria-label="Tap2Buy Café logo"
             className={className}
         >
             {/* Icon */}
@@ -68,7 +68,7 @@ const Tap2Bay = ({
                         fontSize="15"
                         fill={textColor}
                     >
-                        Tap2Bay
+                        Tap2Buy
                     </text>
 
                     <text
@@ -88,4 +88,4 @@ const Tap2Bay = ({
     );
 };
 
-export default Tap2Bay;
+export default Tap2Buy;
